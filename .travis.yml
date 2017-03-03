@@ -1,26 +1,24 @@
 language: go
 sudo: false
-go:
-  - 1.8
-  - 1.7.5
-  - 1.7.4
-  - 1.7.3
-  - 1.7.2
-  - 1.7.1
-  - 1.7
-  - tip
-  - 1.6.x
-  - 1.5.x
-notifications:
-  email:
-    on_success: never
 matrix:
   fast_finish: true
+  include:
+    - go: 1.8
+      env: TEST_METHOD=goveralls
+    - go: 1.7.5
+    - go: 1.7.4
+    - go: 1.7.3
+    - go: 1.7.2
+    - go: 1.7.1
+    - go: 1.7
+    - go: tip
+    - go: 1.6.x
+    - go: 1.5.x
   allow_failures:
     - go: tip
     - go: 1.6.x
     - go: 1.5.x
-  include:
-    - go: 1.8
-      env: GOVERALLS=true
-script: env $GOVERALLS ./test.sh
+script: ./test.sh $TEST_METHOD
+notifications:
+  email:
+    on_success: never
